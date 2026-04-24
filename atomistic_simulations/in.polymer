@@ -16,15 +16,11 @@ dihedral_style	opls
 
 # ---------- Umbrella windows definition --------
 variable t world 3.0 3.5 4.0 4.5 5.0 5.5 6.0 6.5 7.0 7.5 8.0 8.5 9.0 9.5 10.0 10.5 11.0 11.5 12.0 12.5 13.0 13.5 14.0 14.5 15.0 15.5 16.0 16.5 17.0 17.5 18.0 18.5 19.0 19.5 20.0 20.5 21.0 21.5 22.0 22.5  #reaction coordinate values
-
 variable I world 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39
-
 variable k world 3.0 3.5 4.0 4.5 5.0 5.5 6.0 6.5 7.0 7.5 8.0 8.5 9.0 9.5 10.0 10.5 11.0 11.5 11.5 11.5 11.5 11.5 11.5 11.5 11.5 11.5 11.5 11.5 11.5 11.5 11.5 11.5 11.5 11.5 11.5 11.5 11.5 11.5 11.5 11.5
 
 # ------ Read Data --------
 read_data	initial_config_mmD_mmT_chloroform.data
-
-
 
 # ------ groups definitions --------
 group mol1 id 90 92 94 93 95 98 96 91 97
@@ -37,7 +33,6 @@ group oligs molecule 1 2
 group cf type 11 12
 
 #minimize 1.0e-4 1.0e-6 100000 100000
-
 
 # ------ Computes--------
 compute T all temp
@@ -53,9 +48,7 @@ compute rg2 olig2 gyration
 compute rg_all oligs gyration
 
 variable overall_dist equal sqrt((c_com1[1]-c_com2[1])^2.0+(c_com1[2]-c_com2[2])^2.0+(c_com1[3]-c_com2[3])^2.0)
-
 variable overall_dist_1 atom sqrt((c_combs1[1]-c_combs2[1])^2.0+(c_combs1[2]-c_combs2[2])^2.0+(c_combs1[3]-c_combs2[3])^2.0)
-
 variable overall_dist_bs equal sqrt((c_combs1[1]-c_combs2[1])^2.0+(c_combs1[2]-c_combs2[2])^2.0+(c_combs1[3]-c_combs2[3])^2.0)
 
 compute for_temper_npt all reduce max v_overall_dist_1
@@ -65,7 +58,6 @@ compute for_temper_npt all reduce max v_overall_dist_1
 thermo  1000
 thermo_style	custom elapsed etotal pe temp density evdwl etail ecoul elong ebond eangle eimp edihed press c_rg1 c_rg2 c_rg_all
 
-
 # ------ initialization and ensemble definition--------
 velocity       all create 298.15 54218 dist gaussian mom yes
 fix myfix1 all nvt temp 298.15 298.15 $(100.0*dt)
@@ -73,10 +65,8 @@ fix myfix1 all nvt temp 298.15 298.15 $(100.0*dt)
 # ------ Biasing potential settings --------
 fix freeze mol1 spring couple mol2 15.0 0.0 0.0 0.0 $t
 
-
 # ------ rigid solvent fix --------
 fix constrain cf shake 0.0001 20 0 b 22 a 34
-
 
 run 30000
 
