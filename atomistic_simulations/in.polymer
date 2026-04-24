@@ -34,7 +34,7 @@ group olig1 molecule 1
 group olig2 molecule 2
 group oligs molecule 1 2
 
-group cf type 222 223
+group cf type 11 12
 
 #minimize 1.0e-4 1.0e-6 100000 100000
 
@@ -75,7 +75,7 @@ fix freeze mol1 spring couple mol2 15.0 0.0 0.0 0.0 $t
 
 
 # ------ rigid solvent fix --------
-fix constrain cf shake 0.0001 20 0 b 230 a 384
+fix constrain cf shake 0.0001 20 0 b 22 a 34
 
 
 run 30000
